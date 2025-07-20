@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="py-6">
+<h1 class="title is-1">{{ page_name }}</h1>
+
+{% for i in 0..4 %}
+<div class="box">
+  <article class="media">
+    <div class="media-left">
+	  <a href="{{ path('app_post_content') }}">
+      <figure class="image is-128x128">
+        <img src="https://bulma.io/assets/images/placeholders/128x128.png" alt="Image" />
+      </figure>
+	  </a>
+    </div>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong><a href="{{ path('app_post_content') }}">Lorem Ipsum</a></strong>
+		  <br />
+          <small>by Ocak | 31m</small>
+          <br />
+          <br />
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+          efficitur sit amet massa fringilla egestas. Nullam condimentum luctus
+          turpis... <a href="{{ path('app_post_content') }}">read more</a>
+        </p>
+      </div>
+    </div>
+  </article>
+</div>
+{% endfor%}
+
+</div>
+
+{% endblock %}

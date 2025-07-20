@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ocaka | {{ page_name }}</title>
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+		<div class="is-flex is-flex-direction-column is-full-height-100vh">
+		{% block header %}
+		<div class="is-flex is-align-items-flex-start">
+			<nav class="navbar pb-5" role="navigation" aria-label="main navigation">
+			  <div class="navbar-brand">
+				<a class="navbar-item" href="{{ path('app_home') }}">
+					<h1>Ocaka</h1>
+				</a>
+
+				<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+				  <span aria-hidden="true"></span>
+				  <span aria-hidden="true"></span>
+				  <span aria-hidden="true"></span>
+				  <span aria-hidden="true"></span>
+				</a>
+			  </div>
+
+			  <div id="navbarBasicExample" class="navbar-menu">
+				<div class="navbar-start">
+				  <a class="navbar-item is-selected" href="{{ path('app_home') }}">
+					Beranda
+				  </a>
+
+				  <div class="navbar-item has-dropdown is-hoverable">
+					<a class="navbar-link" href="{{ path('app_posts') }}">
+					  Tulisan
+					</a>
+
+					<div class="navbar-dropdown">
+					  <a class="navbar-item" href="{{ path('app_posts') }}">
+						Cerpen
+					  </a>
+					  <a class="navbar-item">
+						Artikel
+					  </a>
+					  <a class="navbar-item">
+						How-to
+					  </a>
+					  <hr class="navbar-divider">
+					  <a class="navbar-item">
+						Report an issue
+					  </a>
+					</div>
+				  </div>
+
+				  <a class="navbar-item" href="{{ path('app_about') }}">
+					Tentang Saya
+				  </a>
+				</div>
+			</div>
+
+			<!-- Tombol daftar/login (belum perlu)
+			<div class="navbar-end">
+			  <div class="navbar-item">
+				<div class="buttons">
+				  <a class="button is-primary">
+					<strong>Sign up</strong>
+				  </a>
+				  <a class="button is-light">
+					Log in
+				  </a>
+				</div>
+			  </div>
+			</div>
+			-->
+		  </div>
+		</nav>
+		{% endblock %}
+
+		<div class="container is-fullhd">
+        {% block body %}{% endblock %}
+		</div>
+
+		{% block footer %}
+		<footer class="footer is-flex is-align-items-flex-end is-justify-content-center">
+		  <div class="content has-text-centered">
+			<p>
+			  <strong>Ocaka</strong> by <a href="{{ path('app_about') }}">Ocak</a>.
+			</p>
+		  </div>
+		</footer>
+		{% endblock %}
+		</div>
+    </body>
+</html>

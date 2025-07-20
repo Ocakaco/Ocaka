@@ -1,0 +1,12 @@
+@import 'bulma/css/bulma.css';
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css";
+
+/*html, body { height: 100vh; }*/
+
+.is-full-height-100vh {
+	height: 100vh;
+}
+
+.footer {
+	--bulma-footer-padding: 3rem 1.5rem 6rem;
+}
