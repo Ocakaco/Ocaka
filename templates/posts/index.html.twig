@@ -4,12 +4,13 @@
 
 <div class="py-6">
 <h1 class="title is-1">{{ page_name }}</h1>
+{#dump(posts[0].createdAt)#}
 
-{% for i in 0..4 %}
+{% for post in paginator %}
 <div class="box">
   <article class="media">
     <div class="media-left">
-	  <a href="{{ path('app_post_content') }}">
+	  <a href="{{ path('app_post_content', {id: post.id}) }}">
       <figure class="image is-128x128">
         <img src="https://bulma.io/assets/images/placeholders/128x128.png" alt="Image" />
       </figure>
@@ -18,14 +19,14 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong><a href="{{ path('app_post_content') }}">Lorem Ipsum</a></strong>
+          <strong><a href="{{ path('app_post_content', {id: post.id}) }}">{{ post.title }}</a></strong>
 		  <br />
-          <small>by Ocak | 31m</small>
+          <small>by {{ post.author.username }} | {{ post.createdAt|date('Y-m-d H:i') }}</small>
           <br />
           <br />
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
           efficitur sit amet massa fringilla egestas. Nullam condimentum luctus
-          turpis... <a href="{{ path('app_post_content') }}">read more</a>
+          turpis... <a href="{{ path('app_post_content', {id: post.id}) }}">read more</a>
         </p>
       </div>
     </div>
@@ -34,5 +35,36 @@
 {% endfor%}
 
 </div>
+
+<!-- Pagination -->
+<nav class="pagination is-centered my-5" role="navigation" aria-label="pagination">
+
+  {% if cur_page != 1 %}
+  <a href="?page={{ cur_page - 1 }}" class="pagination-previous">Previous</a>
+  {% else %}
+  <a href="?page={{ cur_page - 1 }}" class="pagination-previous is-disabled">Previous</a>
+  {% endif %}
+
+  {% if cur_page != total_page %}
+  <a href="?page={{ cur_page + 1 }}" class="pagination-next">Next page</a>
+  {% else %}
+  <a href="?page={{ cur_page + 1 }}" class="pagination-next is-disabled">Next page</a>
+  {% endif %}
+
+  {% if total_page != 1 %}
+  <ul class="pagination-list">
+	{% for i in 1..total_page %}
+	<li>
+	  {% if i == cur_page %}
+	  <a href="?page={{ i }}" class="pagination-link is-disabled" aria-label="">{{ i }}</a>
+	  {% else %}
+	  <a href="?page={{ i }}" class="pagination-link" aria-label="">{{ i }}</a>
+	  {% endif %}
+	</li>
+	{% endfor %}
+  </ul>
+  {% endif %}
+
+</nav>
 
 {% endblock %}

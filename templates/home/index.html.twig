@@ -4,16 +4,12 @@
 
 <h1 class="title is-1">{{ page_name }}</h1>
 
-<div class="fixed-grid has-5-cols">
+<div class="fixed-grid has-4-cols">
 <div class="grid">
-	{% for i in 1..5 %}
-		{% if i == 1 %}
-		<div class="card cell is-row-span-3 is-col-span-3">
-		{% else %}
+	{% for post in paginator %}
 		<div class="card cell m-2">
-		{% endif %}
 		  <div class="card-image">
-			<a href="">
+			<a href="{{ path('app_post_content', {id: post.id}) }}">
 			<figure class="image is-4by3">
 			  <img
 				src="https://bulma.io/assets/images/placeholders/640x480.png"
@@ -25,16 +21,16 @@
 		  <div class="card-content">
 			<div class="media">
 			  <div class="media-content">
-				<a class="title is-4" href="">Lorem Ipsum</a>
-				<p class="subtitle is-6">by Ocak</p>
+				<a class="title is-4" href="{{ path('app_post_content', {id: post.id}) }}">{{ post.title }}</a>
+				<p class="subtitle is-6">by {{ post.author.username }}</p>
 			  </div>
 			</div>
 
 			<div class="content">
 			  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-			   <a href="#">read more...</a>
+			   <a href="{{ path('app_post_content', {id: post.id}) }}">read more...</a>
 			  <br />
-			  <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+			  <time>{{ post.createdAt|date('H:i - j F Y') }}</time>
 			</div>
 		  </div>
 		</div>
@@ -42,36 +38,36 @@
 </div>
 </div>
 
-<nav class="pagination my-5" role="navigation" aria-label="pagination">
-  <a href="#" class="pagination-previous">Previous</a>
-  <a href="#" class="pagination-next">Next page</a>
+
+<!-- Pagination -->
+<nav class="pagination is-centered my-5" role="navigation" aria-label="pagination">
+
+  {% if cur_page != 1 %}
+  <a href="?page={{ cur_page - 1 }}" class="pagination-previous">Previous</a>
+  {% else %}
+  <a href="?page={{ cur_page - 1 }}" class="pagination-previous is-disabled">Previous</a>
+  {% endif %}
+
+  {% if cur_page != total_page %}
+  <a href="?page={{ cur_page + 1 }}" class="pagination-next">Next page</a>
+  {% else %}
+  <a href="?page={{ cur_page + 1 }}" class="pagination-next is-disabled">Next page</a>
+  {% endif %}
+
+  {% if total_page != 1 %}
   <ul class="pagination-list">
-    <li>
-      <a href="#" class="pagination-link" aria-label="Goto page 1">1</a>
-    </li>
-    <li>
-      <span class="pagination-ellipsis">&hellip;</span>
-    </li>
-    <li>
-      <a href="#" class="pagination-link" aria-label="Goto page 45">45</a>
-    </li>
-    <li>
-      <a
-        class="pagination-link is-current"
-        aria-label="Page 46"
-        aria-current="page"
-        >46</a
-      >
-    </li>
-    <li>
-      <a href="#" class="pagination-link" aria-label="Goto page 47">47</a>
-    </li>
-    <li>
-      <span class="pagination-ellipsis">&hellip;</span>
-    </li>
-    <li>
-      <a href="#" class="pagination-link" aria-label="Goto page 86">86</a>
-    </li>
+	{% for i in 1..total_page %}
+	<li>
+	  {% if i == cur_page %}
+	  <a href="?page={{ i }}" class="pagination-link is-disabled" aria-label="">{{ i }}</a>
+	  {% else %}
+	  <a href="?page={{ i }}" class="pagination-link" aria-label="">{{ i }}</a>
+	  {% endif %}
+	</li>
+	{% endfor %}
   </ul>
+  {% endif %}
+
 </nav>
+
 {% endblock %}

@@ -10,3 +10,7 @@
 .footer {
 	--bulma-footer-padding: 3rem 1.5rem 6rem;
 }
+
+.pagination .is-disabled, .pagination .pagination-list .is-disabled {
+	pointer-events: none;
+}
